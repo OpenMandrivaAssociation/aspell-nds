@@ -45,23 +45,23 @@ A %{languageenglazy} dictionary for use with aspell, a spelling checker.
 %make
 
 %install
-rm -fr $RPM_BUILD_ROOT
+rm -fr %{buildroot}
 
 %makeinstall_std
 
 chmod 644 Copyright README* 
 
 # if there is isn't a qwertz.kbd provided by aspell, create it
-if [ ! -r ${RPM_BUILD_ROOT}/%{_libdir}/aspell-%{aspell_ver}/qwertz.kbd \
+if [ ! -r %{buildroot}/%{_libdir}/aspell-%{aspell_ver}/qwertz.kbd \
 	-a ! -r /%{_libdir}/aspell-%{aspell_ver}/qwertz.kbd ]
 then
 	cat /%{_libdir}/aspell-%{aspell_ver}/standard.kbd | \
 	perl -p -e 's/ty/tz/; s/yu/zu/; s/zx/yx/' \
-	> ${RPM_BUILD_ROOT}/%{_libdir}/aspell-%{aspell_ver}/qwertz.kbd
+	> %{buildroot}/%{_libdir}/aspell-%{aspell_ver}/qwertz.kbd
 fi
 
 %clean
-rm -fr $RPM_BUILD_ROOT
+rm -fr %{buildroot}
 
 %files
 %defattr(-,root,root)
